@@ -1,52 +1,19 @@
-var data = {
-    val: '5',
-    left: {
-        val: '2',
-        left: {
-            val: '1',
-            left: null,
-            right: null
-        },
-        right: {
-            val: '4',
-            left: {
-                val: '3',
-                left: null,
-                right: null
-            },
-            right: null
-        }
-    },
-    right: {
-        val: '6',
-        left: null,
-        right: {
-            val: '7',
-            left: {
-                val: '8',
-                left: null,
-                right: null
-            },
-            right: null
-        }
+var arr = [1,2,3,312,3,12,312,3,12,312,3,123,12]
+
+function quickSort(array){
+    if(!array.length) return array
+
+    const middle = Math.floor(array.length / 2)
+    const middleNumber = array.splice(middle,1)[0]
+    const left = []
+    const right = []
+
+    for (let i = 0; i < array.length; i++) {
+        const element = array[i];
+        element > middleNumber? right.push(element) : left.push(element)
     }
+
+    return [].concat(quickSort(left),middleNumber,quickSort(right))
 }
 
-function postorder(data){
-    const stack = [data]
-    const outStack = []
-
-    while(stack.length){
-        const top = stack.pop()
-        outStack.push(top)
-
-        top.left && stack.push(top.left)
-        top.right && stack.push(top.right)
-    }
-
-    while(outStack.length){
-        const item = outStack.pop()
-        console.log(item.val);
-    }
-}
-postorder(data)
+console.log(quickSort(arr));
